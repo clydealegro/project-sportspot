@@ -1,2 +1,5 @@
-<h2>You can search for sports locations here</h2>
-<input type="" />
+<div class="container">
+    <div class="row">
+        <h1>UYAAG</h1>
+    </div>
+</div>

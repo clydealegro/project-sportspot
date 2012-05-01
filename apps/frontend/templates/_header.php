@@ -1,5 +1,6 @@
-<header>
-    <h1>Company Name</h1>
-    <a href="">Sign Up</a>
-    <a href="">Sign In</a>
+<header class="container top-bar">
+    <div class="wrap clearfix">
+        <a href="">Sign In</a>                
+        <a href="">Sign Up</a>        
+    </div>
 </header>

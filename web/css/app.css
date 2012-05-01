@@ -13,11 +13,45 @@
 /* -----------------------------------------
    Shared Styles
 ----------------------------------------- */
+    body {
+        background-color: #fafdf2;
+        font-family: "myriad-pro",sans-serif;
+    }
+    
+    .top-bar {
+        background-color: #4C4C4C;
+    }
 
+    .top-bar .wrap {
+        max-width: 1200px;
+        width: auto;
+        margin: 0 auto;
+        padding: 10px 0;
+    }
+    
+    .top-bar a {
+        color: #fff;
+        float: right;
+        padding-right: 10px;
+        margin-right: 10px;
+        border-right: 1px solid #7d7d7d;
+        font-weight: bold;
+    }
+    
+    .top-bar a:first-child {
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+    
+    h1 {
+        font-family: "domus-titling-web",sans-serif;
+        font-weight: 200;
+    }
 
 
 /* -----------------------------------------
-   Page Name 1
+   Home 
 ----------------------------------------- */
 
 

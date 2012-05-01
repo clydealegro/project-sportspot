@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Welcome to Foundation</title>
+	<title>Welcome to Uyaag Your Directory of Sports Locations and Establishments in the Country.</title>
   
 	<!-- Included CSS Files -->
 	<link rel="stylesheet" href="css/foundation.css">
