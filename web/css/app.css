@@ -7,6 +7,13 @@
 :: Shared Styles
 :: Page Name 1
 :: Page Name 2
+
+362f2d
+4c4c4c
+94b73e
+b5c0af
+fafdf2
+
 */
 
 
@@ -14,19 +21,24 @@
    Shared Styles
 ----------------------------------------- */
     body {
-        background-color: #fafdf2;
+        background: #fafdf2 none;
+        color: #362f2d;
         font-family: "myriad-pro",sans-serif;
     }
     
     .top-bar {
-        background-color: #4C4C4C;
+        background-color: #F77825;
     }
 
     .top-bar .wrap {
         max-width: 1200px;
         width: auto;
         margin: 0 auto;
-        padding: 10px 0;
+    }
+    
+    .top-bar .actions {
+        float: right;
+        margin-top: 8px;
     }
     
     .top-bar a {
@@ -34,7 +46,7 @@
         float: right;
         padding-right: 10px;
         margin-right: 10px;
-        border-right: 1px solid #7d7d7d;
+        border-right: 1px solid #FBCEB1;
         font-weight: bold;
     }
     
@@ -45,9 +57,20 @@
     }
     
     h1 {
-        font-family: "domus-titling-web",sans-serif;
-        font-weight: 200;
+        font-family: "ratio",sans-serif;
+        font-weight: 700;
+        color: #fff;
+        font-size: 2.7rem;        
+        float: left;
+        margin: 0;
     }
+    
+    h2 {
+        font-weight: normal;
+        font-size: 2.3rem;
+    }
+    
+    
 
 
 /* -----------------------------------------
