@@ -25,5 +25,14 @@ class TokenPeer extends BaseTokenPeer {
 		$c->add(self::EXPIRES_AT, date('Y-m-d H:i:s'), Criteria::GREATER_EQUAL);
 		return self::doSelectOne($c);
 	}
+	
+	public static function insertToken($verificationCode,$accountId) 
+	{
+		$token = new Token();
+		$token->setTokenId($verificationCode);
+		$token->setAccountId($accountId);
+		$token->setExpiresAt(time() + 86400);
+		self::doInsert($token);
+	}
 
 } // TokenPeer

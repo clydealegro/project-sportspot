@@ -48,7 +48,7 @@ class registerActions extends sfActions
   {
 	$uniqueid = uniqid();
 	$verificationCode = md5('uniqueid='.$uniqueid.'&id='.$account->getAccountId().'&email='.$account->getEmail()); 
-	$this->insertToken( $verificationCode, $account->getAccountId() );
+	TokenPeer::insertToken($verificationCode,  $account->getAccountId());
 	$message = $this->getMailer()->compose(
 	    'nesie@projectweb.ph',
 		$account->getEmail(),
@@ -56,16 +56,5 @@ class registerActions extends sfActions
 		'Please activate your account here: http://localhost:8080/frontend_dev.php/activate/index?verificationCode='.$verificationCode);
 		
 	$this->getMailer()->send($message);
-  }
-  
-  private function insertToken( $verificationCode, $ID ) {
-	$user="root";
-	$password="";
-	$database="sportspot";
-	mysql_connect(localhost,$user,$password);
-	mysql_select_db($database);
-	$query = "INSERT INTO  `sportspot`.`token` (`token_id` ,`account_id` ,`expires_at`) VALUES ('".$verificationCode."',  '".$ID."', '2012-05-03 08:10:05')";
-	mysql_query($query);
-	mysql_close();
   }
 }
