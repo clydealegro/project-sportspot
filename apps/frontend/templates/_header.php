@@ -2,8 +2,8 @@
     <div class="wrap clearfix">
         <h1>UYAAG</h1>
         <div class="actions clearfix">
-            <a href="">Sign In</a>                
-            <a href="">Sign Up</a>        
+            <a href="<?php echo url_for('register') ?>">Sign Up</a>
+            <a href="<?php echo url_for('login') ?>">Sign In</a>
         </div>        
     </div>
 </header>

@@ -5,12 +5,31 @@
 homepage:
   url:   /
   param: { module: home, action: index }
-
-# generic rules
-# please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
+  
+register:
+  url:     /register.:sf_format
+  class:   sfPropelRoute
+  options: { model: Account, type: list }
+  param:   { module: register, action: index, sf_format: html }
+  requirements: { sf_method: get }
+ 
+register_create:
+  url:     /register.:sf_format
+  class:   sfPropelRoute
+  options: { model: Account, type: object }
+  param:   { module: register, action: create, sf_format: html }
+  requirements: { sf_method: post }
+  
+login:
+  url:     /login.:sf_format
+  param:   { module: login, action: index, sf_format: html }
+  requirements: { sf_method: get }
+  
+activate:
+  url:		/activate/:verificationCode
+  param:    { module: activate, action: index, sf_format: html }
+  requirements: { sf_method: get }
 
 default:
   url:   /:module/:action/*
+
