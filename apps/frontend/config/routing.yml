@@ -29,3 +29,7 @@ activate:
   url:		/activate/index
   param:    { module: activate, action: index, sf_format: html }
   requirements: { sf_method: get }
+
+default:
+  url:   /:module/:action/*
+
