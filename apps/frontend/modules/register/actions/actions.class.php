@@ -17,6 +17,55 @@ class registerActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    
+    $this->account =AccountPeer::doSelect(new Criteria());
+	$this->form = new AccountForm();
+  }
+  
+  public function executeCreate(sfWebRequest $request)
+  {
+	$this->form = new AccountForm();
+	$this->processForm($request, $this->form);
+	$this->setTemplate('index');
+  }
+	 
+  protected function processForm(sfWebRequest $request, sfForm $form)
+  {
+  	$form->bind(
+	$request->getParameter($form->getName()),
+	$request->getFiles($form->getName())
+	);
+	 
+    if ($form->isValid())
+	{
+	  $account = $form->save();
+	  $this->sendMail( $account );
+	  $this->getUser()->setFlash('notice', sprintf('Successfully registered! Activate first your account to start adding listings to Sportspot. An activation link has been sent to %s.', $account->getEmail()));
+	  $this->redirect( 'register' );
+	}
+  }
+  
+  private function sendMail( $account )
+  {
+	$uniqueid = uniqid();
+	$verificationCode = md5('uniqueid='.$uniqueid.'&id='.$account->getAccountId().'&email='.$account->getEmail()); 
+	$this->insertToken( $verificationCode, $account->getAccountId() );
+	$message = $this->getMailer()->compose(
+	    'nesie@projectweb.ph',
+		$account->getEmail(),
+		'Sportspot Account Verification',
+		'Please activate your account here: http://localhost:8080/frontend_dev.php/activate/index?verificationCode='.$verificationCode);
+		
+	$this->getMailer()->send($message);
+  }
+  
+  private function insertToken( $verificationCode, $ID ) {
+	$user="root";
+	$password="";
+	$database="sportspot";
+	mysql_connect(localhost,$user,$password);
+	mysql_select_db($database);
+	$query = "INSERT INTO  `sportspot`.`token` (`token_id` ,`account_id` ,`expires_at`) VALUES ('".$verificationCode."',  '".$ID."', '2012-05-03 08:10:05')";
+	mysql_query($query);
+	mysql_close();
   }
 }

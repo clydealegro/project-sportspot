@@ -1,31 +1,5 @@
-<form action="">
-    <ul>
-        <li>
-            <label for="">First Name</label>
-            <input type="text" class="text" />
-        </li>
-        <li>
-            <label for="">Last Name</label>
-            <input type="text" class="text" />
-        </li>
-        <li>
-            <label for="">Email</label>
-            <input type="text" class="text" />
-        </li>
-        <li>
-            <label for="">Confirm Email</label>
-            <input type="text" class="text" />
-        </li>
-        <li>
-            <label for="">Password</label>
-            <input type="password" class="text" />
-        </li>
-        <li>
-            <label for="">Confirm Password</label>
-            <input type="password" class="text" />
-        </li>
-        <li>
-            <input type="submit" class="submit" />
-        </li>
-    </ul>
-</form>
+<h1>Register</h1>
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <div ><?php echo $sf_user->getFlash('notice') ?></div>
+<?php endif ?><br/>
+<?php include_partial('form', array('form' => $form)) ?>

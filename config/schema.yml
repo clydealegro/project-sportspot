@@ -1,0 +1,90 @@
+propel:
+  _attributes:
+    package: lib.model
+    defaultIdMethod: native
+  account:
+    _attributes: { phpName: Account }
+    account_id: { phpName: AccountId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    email: { phpName: Email, type: VARCHAR, size: '45', required: false, index: unique }
+    password: { phpName: Password, type: VARCHAR, size: '45', required: true }
+    first_name: { phpName: FirstName, type: VARCHAR, size: '45', required: true }
+    last_name: { phpName: LastName, type: VARCHAR, size: '45', required: true }
+    status: { phpName: Status, type: TINYINT, size: '1', required: true, defaultValue: '1' }
+    created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
+    updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
+  account_to_photo:
+    _attributes: { phpName: AccountToPhoto }
+    account_id: { phpName: AccountId, type: INTEGER, size: '11', required: true, foreignTable: account, foreignReference: account_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    photo_id: { phpName: PhotoId, type: INTEGER, size: '11', required: true, foreignTable: photo, foreignReference: photo_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_account_to_photo_account1: [account_id], fk_account_to_photo_photo1: [photo_id] }
+  announcement:
+    _attributes: { phpName: Announcement }
+    announcement_id: { phpName: AnnouncementId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    title: { phpName: Title, type: VARCHAR, size: '45', required: false }
+    description: { phpName: Description, type: LONGVARCHAR, required: false }
+    created_at: { phpName: CreatedAt, type: TIMESTAMP, required: false }
+    updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
+    _indexes: { fk_announcement_listing1: [listing_id] }
+  availability:
+    _attributes: { phpName: Availability }
+    availability_id: { phpName: AvailabilityId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    day: { phpName: Day, type: TINYINT, size: '1', required: false }
+    opening_time: { phpName: OpeningTime, type: TIME, required: false }
+    closing_time: { phpName: ClosingTime, type: TIME, required: false }
+  category:
+    _attributes: { phpName: Category }
+    category_id: { phpName: CategoryId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    name: { phpName: Name, type: VARCHAR, size: '45', required: false }
+    description: { phpName: Description, type: LONGVARCHAR, required: false }
+  listing:
+    _attributes: { phpName: Listing }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    account_id: { phpName: AccountId, type: INTEGER, size: '11', required: true, foreignTable: account, foreignReference: account_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    name: { phpName: Name, type: VARCHAR, size: '45', required: false }
+    complete_address: { phpName: CompleteAddress, type: VARCHAR, size: '45', required: false }
+    details: { phpName: Details, type: LONGVARCHAR, required: false }
+    contact_person: { phpName: ContactPerson, type: VARCHAR, size: '45', required: false }
+    contact_number: { phpName: ContactNumber, type: VARCHAR, size: '45', required: false }
+    _indexes: { fk_listing_account1: [account_id] }
+  listing_to_availability:
+    _attributes: { phpName: ListingToAvailability }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    availability_id: { phpName: AvailabilityId, type: INTEGER, size: '11', required: true, foreignTable: availability, foreignReference: availability_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_listing_to_availability_availability1: [availability_id], fk_listing_to_availability_listing1: [listing_id] }
+  listing_to_category:
+    _attributes: { phpName: ListingToCategory }
+    category_id: { phpName: CategoryId, type: INTEGER, size: '11', required: true, foreignTable: category, foreignReference: category_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_listingsToCategory_category1: [category_id], fk_listingsToCategory_listings1: [listing_id] }
+  listing_to_map:
+    _attributes: { phpName: ListingToMap }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    map_info_id: { phpName: MapInfoId, type: INTEGER, size: '11', required: true, foreignTable: map_info, foreignReference: map_info_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_listing_to_map_listing1: [listing_id], fk_listing_to_map_map_info1: [map_info_id] }
+  listing_to_photo:
+    _attributes: { phpName: ListingToPhoto }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    photo_id: { phpName: PhotoId, type: INTEGER, size: '11', required: true, foreignTable: photo, foreignReference: photo_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    _indexes: { fk_listing_to_photo_listing1: [listing_id], fk_listing_to_photo_photo1: [photo_id] }
+  map_info:
+    _attributes: { phpName: MapInfo }
+    map_info_id: { phpName: MapInfoId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    region: { phpName: Region, type: INTEGER, size: '11', required: false }
+    city_municipality: { phpName: CityMunicipality, type: VARCHAR, size: '45', required: false }
+    google_latitude: { phpName: GoogleLatitude, type: DECIMAL, size: '10', scale: '0', required: false }
+    google_longitude: { phpName: GoogleLongitude, type: DECIMAL, size: '10', scale: '0', required: false }
+  photo:
+    _attributes: { phpName: Photo }
+    photo_id: { phpName: PhotoId, type: INTEGER, size: '11', primaryKey: true, required: true }
+    context: { phpName: Context, type: VARCHAR, size: '45', required: false }
+    context_id: { phpName: ContextId, type: INTEGER, size: '11', required: false }
+    title: { phpName: Title, type: VARCHAR, size: '45', required: false }
+    caption: { phpName: Caption, type: VARCHAR, size: '45', required: false }
+    filename: { phpName: Filename, type: VARCHAR, size: '45', required: false }
+  token:
+    _attributes: { phpName: Token }
+    token_id: { phpName: TokenId, type: VARCHAR, size: '100', primaryKey: true, required: true }
+    account_id: { phpName: AccountId, type: INTEGER, size: '11', required: true, foreignTable: account, foreignReference: account_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    expires_at: { phpName: ExpiresAt, type: TIMESTAMP, required: true }
+    _indexes: { fk_token_account1: [account_id] }

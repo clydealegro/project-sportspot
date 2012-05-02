@@ -26,6 +26,6 @@ login:
   requirements: { sf_method: get }
   
 activate:
-  url:		/activate/:verificationCode
+  url:		/activate/index
   param:    { module: activate, action: index, sf_format: html }
   requirements: { sf_method: get }
