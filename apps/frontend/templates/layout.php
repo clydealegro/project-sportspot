@@ -32,6 +32,9 @@
 <body>
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+
     <?php require_once("_header.php"); ?>
 
     <div id="main" role="main">
@@ -40,8 +43,7 @@
 
     <?php require_once("_footer.php"); ?>
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+    
     
     <script type="text/javascript" src="http://use.typekit.com/jym5bou.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
