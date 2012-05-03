@@ -27,7 +27,8 @@ fafdf2
     }
     
     .top-bar {
-        background-color: #F77825;
+        background-color: #D3CE3D;
+        border-bottom: 8px solid #F1EFA5;
     }
 
     .top-bar .wrap {
@@ -46,7 +47,7 @@ fafdf2
         float: right;
         padding-right: 10px;
         margin-right: 10px;
-        border-right: 1px solid #FBCEB1;
+        border-right: 1px solid #F1EFA5;
         font-weight: bold;
     }
     
@@ -66,8 +67,12 @@ fafdf2
     }
     
     h2 {
+        font-family: "rooney-web",sans-serif;
+        font-size: 5.3rem;
         font-weight: normal;
-        font-size: 2.3rem;
+        line-height: 1.1;
+        margin-top: 40px;
+        text-align: center;
     }
     
     
