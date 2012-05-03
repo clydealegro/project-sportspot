@@ -27,6 +27,34 @@ class registerActions extends sfActions
 	$this->processForm($request, $this->form);
 	$this->setTemplate('index');
   }
+
+  /**
+   *
+   * @TODO: improve message email template
+   *
+   *
+   *
+   */
+
+  public function executeRequestResetPassword(sfWebRequest $request)
+  {
+  	//improve this..... 
+  	//improve the email message template.
+  	//maybe find a better tokenizer..
+
+
+  	$email = $request->getParameter('email');
+
+  	//check if email exists
+
+  	if(AccountPeer::countEmail($email)){
+  		//improve this... :D
+  		$message = $this->getMailer()->compose('nesie@projectweb.ph',$account->getEmail(),'Sportspot Account Verification',
+				'Reset password here ');
+		
+			$this->getMailer()->send($message);
+  	}
+  }
 	 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
