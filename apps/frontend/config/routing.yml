@@ -5,6 +5,15 @@
 homepage:
   url:   /
   param: { module: home, action: index }
+
+account-request-reset-password:
+  url: /account/account-request-reset-password
+  param: { module: accounts, action: requestResetPassword }
+
+account-reset-password:
+  url: /account/reset-password/:token
+  param: { module: accounts, action: resetPassword }
+
   
 register:
   url:     /register.:sf_format
