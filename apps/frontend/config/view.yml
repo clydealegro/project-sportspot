@@ -14,7 +14,7 @@ default:
 
   stylesheets:    []
 
-  javascripts:    []
+  javascripts:    [jquery-ui/js/jquery-ui-1.8.20.custom.min.js]
 
   has_layout:     true
   layout:         layout

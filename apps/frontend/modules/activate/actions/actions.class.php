@@ -22,10 +22,12 @@ class activateActions extends sfActions
 	
 	if( $token ){
 		$account = $token->getAccount();
+		$token->delete();
 		$account->setStatus(AccountPeer::VERIFIED);
 		$account->save();	
 	}
-	
-	//var_dump($account); exit;
+	else {
+		$this->forward404();
+	}
   }
 }
