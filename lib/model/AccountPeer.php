@@ -30,5 +30,13 @@ class AccountPeer extends BaseAccountPeer {
 
 		return select::doCount($criteria);
 	}
-
+	
+	public static function getAccount($email,$password)
+	{
+		$criteria = new Criteria();
+		$criteria->add(self::EMAIL,$email);
+		$criteria->add(self::PASSWORD,$password);
+		
+		return self::doSelectOne($criteria);
+	}
 } // AccountPeer

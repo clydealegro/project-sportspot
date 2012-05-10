@@ -17,6 +17,22 @@ class loginActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->forward('default', 'module');
+    $this->form = new LoginForm();
+  }
+  
+  public function executeSubmit(sfWebRequest $request)
+  {
+	$this->forward404Unless($request->isMethod('post'));
+	$email = $request->getParameter('email');
+	$password = $request->getParameter('password');
+	
+	$this->getUser()->authenticate($email,$password);
+	if($this->getUser()->isAuthenticated())
+		$this->redirect('home/index');
+	else 
+	{
+		$this->getUser()->setFlash('loginerror', sprintf('Log in failed.'));
+		$this->redirect('login/index');
+	}
   }
 }
