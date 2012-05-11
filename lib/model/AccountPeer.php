@@ -27,8 +27,9 @@ class AccountPeer extends BaseAccountPeer {
 	{
 		$criteria = new Criteria();
 		$criteria->add(self::EMAIL,$email);
+		$criteria->add(self::STATUS,self::VERIFIED);
 
-		return select::doCount($criteria);
+		return self::doCount($criteria);
 	}
 
 } // AccountPeer
