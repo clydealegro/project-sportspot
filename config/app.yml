@@ -1,0 +1,5 @@
+all:
+  mailer:
+    mail_host: smtp.gmail.com
+    mail_user: nesie@projectweb.ph
+    mail_password: nluc1892
