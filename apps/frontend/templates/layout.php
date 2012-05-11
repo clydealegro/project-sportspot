@@ -36,14 +36,12 @@
     <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
     <?php require_once("_header.php"); ?>
-
+	
     <div id="main" role="main">
         <?php echo $sf_content ?>
     </div>
 
     <?php require_once("_footer.php"); ?>
-    
-    
     
     <script type="text/javascript" src="http://use.typekit.com/jym5bou.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>

@@ -17,4 +17,8 @@
  * @package    lib.model
  */
 class Account extends BaseAccount {
+	public static function isExisting($email,$password) 
+	{
+		
+	}
 } // Account
