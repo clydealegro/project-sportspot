@@ -13,14 +13,14 @@
 	<title>Welcome to Uyaag Your Directory of Sports Locations and Establishments in the Country.</title>
   
 	<!-- Included CSS Files -->
-	<link rel="stylesheet" href="css/foundation.css">
-	<link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="/css/foundation.css">
+	<link rel="stylesheet" href="/css/app.css">
 
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" href="css/ie.css">
 	<![endif]-->
 	
-	<script src="js/modernizr.foundation.js"></script>
+	<script src="/js/modernizr.foundation.js"></script>
 
 	<!-- IE Fix for HTML5 Tags -->
 	<!--[if lt IE 9]>
@@ -48,15 +48,15 @@
     <script type="text/javascript" src="http://use.typekit.com/jym5bou.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
-    <script src="js/plugins.js"></script>
-    <script src="js/script.js"></script>
+    <script src="/js/plugins.js"></script>
+    <script src="/js/script.js"></script>
     
     <script>
     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));
-
+	</script>
 </body>
 
 </html>
