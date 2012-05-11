@@ -8,11 +8,11 @@ homepage:
 
 account-request-reset-password:
   url: /account/account-request-reset-password
-  param: { module: accounts, action: requestResetPassword }
+  param: { module: register, action: requestResetPassword }
 
 account-reset-password:
   url: /account/reset-password/:token
-  param: { module: accounts, action: resetPassword }
+  param: { module: register, action: resetPassword }
 
   
 register:
