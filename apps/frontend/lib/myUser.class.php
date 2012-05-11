@@ -8,8 +8,11 @@ class myUser extends sfBasicSecurityUser
 		if($account)
 		{
 			$status = $account->getStatus();
-			if($status == 2) 
+			if($status == 2) {
 				$this->setAuthenticated(true);
+				$this->setAttribute('name',$account->getFirstName());
+				$this->setAttribute('account_id',$account->getAccountId());
+			}
 		}
 	}
 }
