@@ -16,7 +16,7 @@ class TokenGenerator
 		$crypt = new Crypt();
 		$token = $crypt->encrypt($token);
 
-		return $token; 
+		return urlencode($token); 
 	}
 
 	public function parseToken($token)
