@@ -26,7 +26,7 @@ class RequestResetPasswordNotification extends BaseNotification
 
 		$header = 'Reset Password Reset';
 		$greeting = 'Good day!';
-		$body = "<p>You can reset you password here <a href='".$base.$url."'>".$base.$url."</a></p>";
+		$body = "<p>You can reset you password here <a href=".$base.$url.">".$base.$url."</a></p>";
 
 		$message = get_partial('global/notification',array('greeting'=>$greeting,'header'=>$header,'body'=>$body));
 
