@@ -18,14 +18,14 @@ class registerActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->account =AccountPeer::doSelect(new Criteria());
-	$this->form = new AccountForm();
+    $this->form = new AccountForm();
   }
   
   public function executeCreate(sfWebRequest $request)
   {
-	$this->form = new AccountForm();
-	$this->processForm($request, $this->form);
-	$this->setTemplate('index');
+    $this->form = new AccountForm();
+    $this->processForm($request, $this->form);
+    $this->setTemplate('index');
   }
 
   /**
@@ -37,39 +37,39 @@ class registerActions extends sfActions
    */
 
   public function executeRequestResetPassword(sfWebRequest $request)
-  {
-  	//improve this..... 
+  { 
   	//improve the email message template.
   	//maybe find a better tokenizer..
-
 
   	$email = $request->getParameter('email');
 
   	//check if email exists
 
-  	if(AccountPeer::countEmail($email)){
-  		//improve this... :D
-  		$message = $this->getMailer()->compose('nesie@projectweb.ph',$account->getEmail(),'Sportspot Account Verification',
-				'Reset password here ');
-		
-			$this->getMailer()->send($message);
+
+
+  	if($account = AccountPeer::retrieveByEmail($email)){
+      $this->getUser()->setFlash('notice','Notification has been sent to you email!',true);
+      $notification = new RequestResetPasswordNotification($account);
+      $notification->sendMail();
   	}
+    else{
+      $this->getUser()->setFlash('notice','Email does not exists! May your email it not verified',true);
+    }
+
+    $this->redirect('register');
   }
 	 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
-  	$form->bind(
-	$request->getParameter($form->getName()),
-	$request->getFiles($form->getName())
-	);
+  	$form->bind( $request->getParameter($form->getName()), $request->getFiles($form->getName()));
 	 
     if ($form->isValid())
-	{
-	  $account = $form->save();
-	  $this->sendMail( $account );
-	  $this->getUser()->setFlash('notice', sprintf('Successfully registered! Activate first your account to start adding listings to Sportspot. An activation link has been sent to %s.', $account->getEmail()));
-	  $this->redirect( 'register' );
-	}
+	  {
+  	  $account = $form->save();
+  	  $this->sendMail( $account );
+  	  $this->getUser()->setFlash('notice', sprintf('Successfully registered! Activate first your account to start adding listings to Sportspot. An activation link has been sent to %s.', $account->getEmail()));
+  	  $this->redirect( 'register' );
+	  }
   }
   
   private function sendMail( $account )
