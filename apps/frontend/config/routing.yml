@@ -11,7 +11,7 @@ account-request-reset-password:
   param: { module: register, action: requestResetPassword }
 
 account-reset-password:
-  url: /account/reset-password/:token
+  url: /account/reset-password
   param: { module: register, action: resetPassword }
 
   
