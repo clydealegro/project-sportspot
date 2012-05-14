@@ -90,6 +90,6 @@ propel:
     filename: { phpName: Filename, type: VARCHAR, size: '45', required: false }
   token:
     _attributes: { phpName: Token }
-    token_id: { phpName: TokenId, type: VARCHAR, size: '100', primaryKey: true, required: true }
+    id: { phpName: Id, type: INTEGER, size: '10', primaryKey: true, autoIncrement: true, required: true }
     expires_at: { phpName: ExpiresAt, type: TIMESTAMP, required: true }
     token: { phpName: Token, type: VARCHAR, size: '250', required: true }
