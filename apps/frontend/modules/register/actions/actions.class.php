@@ -28,25 +28,12 @@ class registerActions extends sfActions
     $this->setTemplate('index');
   }
 
-  /**
-   *
-   * @TODO: improve message email template
-   *
-   *
-   *
-   */
-
   public function executeRequestResetPassword(sfWebRequest $request)
   { 
-  	//improve the email message template.
   	//maybe find a better tokenizer..
-
   	$email = $request->getParameter('email');
 
   	//check if email exists
-
-
-
   	if($account = AccountPeer::retrieveByEmail($email)){
       $this->getUser()->setFlash('notice','Notification has been sent to you email!',true);
       $notification = new RequestResetPasswordNotification($account);
@@ -58,6 +45,41 @@ class registerActions extends sfActions
 
     $this->redirect('register');
   }
+
+  public function executeResetPassword(sfWebRequest $request)
+  {
+    $token = $request->getParameter('token');
+
+    $tokenObject = TokenPeer::retrieveByToken($token);
+
+    if($tokenObject){
+      $tokenizer = new TokenGenerator();
+      $params = $tokenizer->parseToken($token);
+
+      if($account = AccountPeer::retrieveByPk($params['id'])){
+        $this->form = new ResetPasswordForm($account);
+
+        if($request->isMethod('post')){
+          $this->form->bind($request->getParameter('confirm_password'));
+
+          if($this->form->isValid()){
+            $this->form->save();
+
+            $this->redirect('homepage');
+          }
+        }
+      }
+      else{
+        //forward to 404 page
+        $this->forward404();
+      }
+
+    }
+    else{
+      //forward to 404 page
+      $this->forward404();
+    }
+  }
 	 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
@@ -66,23 +88,15 @@ class registerActions extends sfActions
     if ($form->isValid())
 	  {
   	  $account = $form->save();
-  	  $this->sendMail( $account );
+
+      $notification = new VerificationEmailNotification($account);
+      $notification->sendMail();
+  	
   	  $this->getUser()->setFlash('notice', sprintf('Successfully registered! Activate first your account to start adding listings to Sportspot. An activation link has been sent to %s.', $account->getEmail()));
-  	  $this->redirect( 'register' );
 	  }
-  }
-  
-  private function sendMail( $account )
-  {
-	$uniqueid = uniqid();
-	$verificationCode = md5('uniqueid='.$uniqueid.'&id='.$account->getAccountId().'&email='.$account->getEmail()); 
-	TokenPeer::insertToken($verificationCode,  $account->getAccountId());
-	$message = $this->getMailer()->compose(
-	    'nesie@projectweb.ph',
-		$account->getEmail(),
-		'Sportspot Account Verification',
-		'Please activate your account here: http://localhost:8080/frontend_dev.php/activate/index?verificationCode='.$verificationCode);
-		
-	$this->getMailer()->send($message);
-  }
+    else{
+      $this->getUser()->setFlash('notice', sprintf('Error while saving! Please check fields..')); 
+    }
+    $this->redirect( 'register' );
+  } 
 }
