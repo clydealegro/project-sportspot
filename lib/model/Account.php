@@ -17,8 +17,10 @@
  * @package    lib.model
  */
 class Account extends BaseAccount {
-	public static function isExisting($email,$password) 
+	
+	public function verify()
 	{
-		
+		$this->setStatus(AccountPeer::VERIFIED);
+		$this->save();
 	}
 } // Account
