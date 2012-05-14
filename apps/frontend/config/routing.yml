@@ -35,7 +35,7 @@ login:
   requirements: { sf_method: get }
   
 activate:
-  url:		/activate/index
+  url:		/activate/verify
   param:    { module: activate, action: index, sf_format: html }
   requirements: { sf_method: get }
 
