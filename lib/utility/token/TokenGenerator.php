@@ -22,7 +22,7 @@ class TokenGenerator
 	public function parseToken($token)
 	{
     $crypt = new Crypt();
-    $param = $crypt->decrypt($token);
+    $param = urldecode($crypt->decrypt($token));
 
     $tempParam = array_unique(explode('&',$param));
     $params = array();
