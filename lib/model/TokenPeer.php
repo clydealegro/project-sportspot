@@ -18,21 +18,22 @@
  */
 class TokenPeer extends BaseTokenPeer {
 	
-	public static function getTokenVerificationCode($verificationCode)
+	const SECONDS_A_DAY = 86400;
+
+	public static function retrieveByToken($token)
 	{
 		$c = new Criteria();
-		$c->add(self::TOKEN_ID, $verificationCode);
+		$c->add(self::TOKEN, $token);
 		$c->add(self::EXPIRES_AT, date('Y-m-d H:i:s'), Criteria::GREATER_EQUAL);
-		return self::doSelectOne($c);
+		return self::doSelectOne($c);	
 	}
-	
-	public static function insertToken($verificationCode,$accountId) 
+
+	public static function insertToken($verificationCode) 
 	{
 		$token = new Token();
-		$token->setTokenId($verificationCode);
-		$token->setAccountId($accountId);
-		$token->setExpiresAt(time() + 86400);
-		self::doInsert($token);
+		$token->setToken(urldecode($verificationCode));
+		$token->setExpiresAt(time() + self::SECONDS_A_DAY);
+		$token->save();
 	}
 
 } // TokenPeer
