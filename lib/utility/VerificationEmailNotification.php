@@ -1,9 +1,10 @@
 <?php
 
 
-class RequestResetPasswordNotification extends BaseNotification
+class VerificationEmailNotification extends BaseNotification
 {
-	private $account;
+
+	private $account = null;
 
 	public function __construct(Account $account)
 	{
@@ -12,9 +13,11 @@ class RequestResetPasswordNotification extends BaseNotification
 		$this->account = $account;
 	}
 
+
 	public function sendMail()
 	{
 		$tokenizer = new TokenGenerator();
+
 		$token = $tokenizer->getToken($this->account->getAccountId(),$type="account");
 
 		$request = sfContext::getInstance()->getRequest();
@@ -22,11 +25,11 @@ class RequestResetPasswordNotification extends BaseNotification
 
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 		sfContext::getInstance()->getConfiguration()->loadHelpers('Url');
-		$url = url_for('@account-reset-password?token='.$token);
+		$url = url_for('@activate?verificationCode='.$token);
 
-		$header = 'Reset Password Reset';
+		$header = 'Email Verification';
 		$greeting = 'Good day!';
-		$body = "<p>You can reset you password here <a href=".$base.$url.">".$base.$url."</a></p>";
+		$body = "<p>You can activate your account here <a href=".$base.$url.">".$base.$url."</a></p>";
 
 		$message = get_partial('global/notification',array('greeting'=>$greeting,'header'=>$header,'body'=>$body));
 
@@ -34,8 +37,8 @@ class RequestResetPasswordNotification extends BaseNotification
 		$to =  array($email);
 
 		$from = array($this->getAdminEmail() => 'Team Uyaag');
-		
-		$this->send($message, "Reset Password Request", $to, $from);
+
+		$this->send($message, "Email Verification", $to, $from);
 
 		TokenPeer::insertToken($token);
 	}
