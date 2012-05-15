@@ -17,17 +17,19 @@ class activateActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-	$verificationCode = $request->getParameter('verificationCode');
-	$token = TokenPeer::getTokenVerificationCode($verificationCode);
-	
-	if( $token ){
-		$account = $token->getAccount();
-		$token->delete();
-		$account->setStatus(AccountPeer::VERIFIED);
-		$account->save();	
+		$verificationCode = $request->getParameter('verificationCode');
+		$token = TokenPeer::retrieveByToken($verificationCode);
+
+		if($token){
+
+			$tokenizer = new TokenGenerator();
+			$params = $tokenizer->parseToken($verificationCode);
+
+			if($account = AccountPeer::retrieveByPk($params['id'])){
+				$account->verify();
+				$token->delete();
+			}
+			
+		}
 	}
-	else {
-		$this->forward404();
-	}
-  }
 }

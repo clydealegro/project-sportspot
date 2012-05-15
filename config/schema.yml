@@ -5,17 +5,19 @@ propel:
   account:
     _attributes: { phpName: Account }
     account_id: { phpName: AccountId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
-    email: { phpName: Email, type: VARCHAR, size: '45', required: false, index: unique }
+    email: { phpName: Email, type: VARCHAR, size: '45', required: false }
     password: { phpName: Password, type: VARCHAR, size: '45', required: true }
     first_name: { phpName: FirstName, type: VARCHAR, size: '45', required: true }
     last_name: { phpName: LastName, type: VARCHAR, size: '45', required: true }
     status: { phpName: Status, type: TINYINT, size: '1', required: true, defaultValue: '1' }
     created_at: { phpName: CreatedAt, type: TIMESTAMP, required: true }
     updated_at: { phpName: UpdatedAt, type: TIMESTAMP, required: false }
+    _uniques: { account_U_1: [email] }
   account_to_photo:
     _attributes: { phpName: AccountToPhoto }
     account_id: { phpName: AccountId, type: INTEGER, size: '11', required: true, foreignTable: account, foreignReference: account_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     photo_id: { phpName: PhotoId, type: INTEGER, size: '11', required: true, foreignTable: photo, foreignReference: photo_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_account_to_photo_account1: [account_id], fk_account_to_photo_photo1: [photo_id] }
   announcement:
     _attributes: { phpName: Announcement }
@@ -51,21 +53,25 @@ propel:
     _attributes: { phpName: ListingToAvailability }
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     availability_id: { phpName: AvailabilityId, type: INTEGER, size: '11', required: true, foreignTable: availability, foreignReference: availability_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_listing_to_availability_availability1: [availability_id], fk_listing_to_availability_listing1: [listing_id] }
   listing_to_category:
     _attributes: { phpName: ListingToCategory }
     category_id: { phpName: CategoryId, type: INTEGER, size: '11', required: true, foreignTable: category, foreignReference: category_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_listingsToCategory_category1: [category_id], fk_listingsToCategory_listings1: [listing_id] }
   listing_to_map:
     _attributes: { phpName: ListingToMap }
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     map_info_id: { phpName: MapInfoId, type: INTEGER, size: '11', required: true, foreignTable: map_info, foreignReference: map_info_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_listing_to_map_listing1: [listing_id], fk_listing_to_map_map_info1: [map_info_id] }
   listing_to_photo:
     _attributes: { phpName: ListingToPhoto }
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     photo_id: { phpName: PhotoId, type: INTEGER, size: '11', required: true, foreignTable: photo, foreignReference: photo_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_listing_to_photo_listing1: [listing_id], fk_listing_to_photo_photo1: [photo_id] }
   map_info:
     _attributes: { phpName: MapInfo }
@@ -84,7 +90,6 @@ propel:
     filename: { phpName: Filename, type: VARCHAR, size: '45', required: false }
   token:
     _attributes: { phpName: Token }
-    token_id: { phpName: TokenId, type: VARCHAR, size: '100', primaryKey: true, required: true }
-    account_id: { phpName: AccountId, type: INTEGER, size: '11', required: true, foreignTable: account, foreignReference: account_id, onDelete: RESTRICT, onUpdate: RESTRICT }
+    id: { phpName: Id, type: INTEGER, size: '10', primaryKey: true, autoIncrement: true, required: true }
     expires_at: { phpName: ExpiresAt, type: TIMESTAMP, required: true }
-    _indexes: { fk_token_account1: [account_id] }
+    token: { phpName: Token, type: VARCHAR, size: '250', required: true }

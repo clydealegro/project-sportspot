@@ -11,7 +11,7 @@ account-request-reset-password:
   param: { module: register, action: requestResetPassword }
 
 account-reset-password:
-  url: /account/reset-password/:token
+  url: /account/reset-password
   param: { module: register, action: resetPassword }
 
   
@@ -35,7 +35,7 @@ login:
   requirements: { sf_method: get }
   
 activate:
-  url:		/activate/index
+  url:		/activate/verify
   param:    { module: activate, action: index, sf_format: html }
   requirements: { sf_method: get }
 

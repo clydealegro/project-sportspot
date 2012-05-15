@@ -23,13 +23,13 @@ class AccountPeer extends BaseAccountPeer {
 	const VERIFIED = 2 ;
 
 
-	public static function countEmail($email)
+	public static function retrieveByEmail($email)
 	{
 		$criteria = new Criteria();
 		$criteria->add(self::EMAIL,$email);
 		$criteria->add(self::STATUS,self::VERIFIED);
 
-		return self::doCount($criteria);
+		return self::doSelectOne($criteria);
 	}
 	
 	public static function getAccount($email,$password)
