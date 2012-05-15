@@ -17,5 +17,12 @@
  * @package    lib.model
  */
 class MapInfoPeer extends BaseMapInfoPeer {
-
+	
+	public static function getMapInfoOfListing($listingId){
+		$criteria = new Criteria();
+	//	$criteria->add(self::LISTING_ID,$listingId);  //<-real code
+	// temporarily map_info_id
+		$criteria->add(self::MAP_INFO_ID, $listingId);
+		return self::doSelectOne($criteria);
+	}
 } // MapInfoPeer

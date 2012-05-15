@@ -39,6 +39,40 @@ activate:
   param:    { module: activate, action: index, sf_format: html }
   requirements: { sf_method: get }
 
+list_view:
+  url:   /list/view.:sf_format
+  class:   sfPropelRoute
+  options: { model: Listing, type: object }
+  param:   { module: list, action: view, sf_format: html }
+
+listing_new:
+  #url:     /listings/new.:sf_format
+  url:     /listings/new
+  class:   sfPropelRoute
+  options: { model: Listing, type: object }
+  #param:   { module: listings, action: new, sf_format: html }
+  param:   { module: listings, action: new }
+  #requirements: { sf_method: get }
+
+listing_view:
+  url:     /listings/view
+  class:   sfPropelRoute
+  options: { model: Listing, type: object }
+  param:   { module: listings, action: view }
+  
+listing_edit:
+  url:     /listings/edit
+  class:   sfPropelRoute
+  options: { model: Listing, type: object }
+  param:   { module: listings, action: edit }
+#  requirements: { sf_method: get }
+
+listing_delete:
+  url:     /listings/delete
+  class:   sfPropelRoute
+  options: { model: Listing, type: object }
+  param:   { module: listings, action: delete }
+  
 default:
   url:   /:module/:action/*
 

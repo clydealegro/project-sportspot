@@ -18,4 +18,26 @@
  */
 class ListingPeer extends BaseListingPeer {
 
+	public static function getUserListings($accountId)
+	{
+		$criteria = new Criteria();
+		$criteria->add(self::ACCOUNT_ID,$accountId);
+		
+		return self::doSelect($criteria);
+	}
+	
+	public static function getListingByOwner($accountId, $listingId){
+		$criteria = new Criteria();
+		$criteria->add(self::ACCOUNT_ID,$accountId);
+		$criteria->add(self::LISTING_ID,$listingId);
+		
+		return self::doSelectOne($criteria);
+	}
+	
+	public static function getAccountIdByOwner($listingId){
+		$criteria = new Criteria();
+		$criteria->add(self::LISTING_ID,$listingId);
+		
+		return self::doSelectOne($criteria);
+	}
 } // ListingPeer
