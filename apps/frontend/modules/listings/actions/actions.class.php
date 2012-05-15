@@ -60,7 +60,7 @@ class listingsActions extends sfActions
 	  	$this->form = new ListingForm($listing);
 		if ('POST' == $request->getMethod()) {
 			$this->form->bind( $request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()) ); 
-			//$editedListing=$this->form->save();
+			$editedListing=$this->form->save();
 			//var_dump($editedListing); exit;
 		}
    /* }

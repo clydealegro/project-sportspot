@@ -12,6 +12,8 @@ class ListingForm extends BaseListingForm
   public function configure()
   {
   	$this->useFields(array('name', 'complete_address', 'details', 'contact_person', 'contact_number'));
+  	
+  	unset($this['listing_id']);
 	
 	//$mapForm = new MapInfoForm();
 	
