@@ -61,12 +61,6 @@ propel:
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
     _indexes: { fk_listingsToCategory_category1: [category_id], fk_listingsToCategory_listings1: [listing_id] }
-  listing_to_map:
-    _attributes: { phpName: ListingToMap }
-    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    map_info_id: { phpName: MapInfoId, type: INTEGER, size: '11', required: true, foreignTable: map_info, foreignReference: map_info_id, onDelete: RESTRICT, onUpdate: RESTRICT }
-    id: { phpName: Id, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
-    _indexes: { fk_listing_to_map_listing1: [listing_id], fk_listing_to_map_map_info1: [map_info_id] }
   listing_to_photo:
     _attributes: { phpName: ListingToPhoto }
     listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
@@ -76,10 +70,12 @@ propel:
   map_info:
     _attributes: { phpName: MapInfo }
     map_info_id: { phpName: MapInfoId, type: INTEGER, size: '11', primaryKey: true, autoIncrement: true, required: true }
+    listing_id: { phpName: ListingId, type: INTEGER, size: '11', required: true, foreignTable: listing, foreignReference: listing_id, onDelete: RESTRICT, onUpdate: RESTRICT }
     region: { phpName: Region, type: INTEGER, size: '11', required: false }
     city_municipality: { phpName: CityMunicipality, type: VARCHAR, size: '45', required: false }
-    google_latitude: { phpName: GoogleLatitude, type: DECIMAL, size: '10', scale: '0', required: false }
-    google_longitude: { phpName: GoogleLongitude, type: DECIMAL, size: '10', scale: '0', required: false }
+    google_latitude: { phpName: GoogleLatitude, type: DECIMAL, size: '20', scale: '10', required: false }
+    google_longitude: { phpName: GoogleLongitude, type: DECIMAL, size: '20', scale: '10', required: false }
+    _indexes: { fk_listing_to_map: [listing_id] }
   photo:
     _attributes: { phpName: Photo }
     photo_id: { phpName: PhotoId, type: INTEGER, size: '11', primaryKey: true, required: true }

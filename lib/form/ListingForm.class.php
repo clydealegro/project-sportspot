@@ -11,12 +11,39 @@ class ListingForm extends BaseListingForm
 {
   public function configure()
   {
-  	$this->useFields(array('name', 'complete_address', 'details', 'contact_person', 'contact_number'));
-  	
-  	unset($this['listing_id']);
+  	$categories = CategoryPeer::doSelect(new Criteria());
+
+	$categoriesArray = array();	
+	foreach ($categories as $category) {
+		$categoriesArray[$category->getCategoryId()] = $category->getName();
+	}
 	
-	//$mapForm = new MapInfoForm();
+  	$this->useFields(array(
+		'name', 'complete_address', 'details', 'contact_person', 'contact_number'
+	));
 	
-	//$this->embedForm('map_info', $mapForm);
+	$this->widgetSchema['categories'] = new sfWidgetFormChoice(array(
+		'expanded' => true,
+		'multiple' => true,
+ 		'choices'  => $categoriesArray
+	));
+	//$this->setDefault('categories', array(4, 2));
+	if ($this->getObject()->isNew()) {
+		$map = new MapInfo();
+		$map->setListing($this->getObject());
+	} else {
+		$selectedCategories = $this->getObject()->getListingToCategorys();
+		$assocCategories = array();
+		foreach($selectedCategories as $category){
+			$assocCategories[] = $category->getCategoryId();
+		}
+		$this->setDefault('categories', $assocCategories);
+		$map = $this->getObject()->getMapInfo();
+	}
+	
+	$mapForm = new MapInfoForm($map);
+	$this->embedForm('map', $mapForm);
+	
+	$this->validatorSchema->setOption('allow_extra_fields', true);
   }
 }

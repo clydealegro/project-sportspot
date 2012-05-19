@@ -18,11 +18,9 @@
  */
 class MapInfoPeer extends BaseMapInfoPeer {
 	
-	public static function getMapInfoOfListing($listingId){
+	public static function getMapInfoOfListing(Listing $listing){
 		$criteria = new Criteria();
-	//	$criteria->add(self::LISTING_ID,$listingId);  //<-real code
-	// temporarily map_info_id
-		$criteria->add(self::MAP_INFO_ID, $listingId);
+		$criteria->add(self::LISTING_ID, $listing->getListingId());
 		return self::doSelectOne($criteria);
 	}
 } // MapInfoPeer

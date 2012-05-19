@@ -27,57 +27,81 @@ class listingsActions extends sfActions
   		$listing = new Listing();
 		$listing->setAccountId($this->getUser()->getAttribute('account_id'));
 		
-  		$this->form = new ListingForm($listing);
+		$this->form = new ListingForm($listing);
 		
 		if ('POST' == $request->getMethod()) {
 			$this->processForm($request, $this->form);
 		}
   	}
 	else{ 
-		$this->redirect('login/index');
+		$this->redirect('@login');
 	}
   }
   
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
+  	$parameters = $request->getParameter($form->getName());
   	$form->bind(
-		$request->getParameter($form->getName()),
+		$parameters,
 		$request->getFiles($form->getName())
 	);
 	
 	if($form->isValid()){
+		
 		$listing = $form->save();
-  		$this->redirect('list/view');
-		//var_dump($listing->getListingId());exit;
+		
+		foreach ($listing->getListingToCategorys() as $row) {
+			$row->delete();
+		}
+		foreach($parameters['categories'] as $parameter){
+			$category = CategoryPeer::retrieveByPK($parameter);
+			$listingCategory = new ListingToCategory();
+			$listingCategory->setListing($listing);
+			$listingCategory->setCategory($category);
+			$listingCategory->save();
+		}
+		
+		$this->redirect('@list_view');
   	}
   }
   
   public function executeEdit(sfWebRequest $request){
-  	//$listingAccountId = ListingPeer::getAccountIdByOwner($request->getParameter('id'))->getAccountId();
+  	$listing = ListingPeer::getListingByOwner($this->getUser()->getAttribute('account_id'), $request->getParameter('id'));
 	
-	//if( $this->getUser()->getAttribute('account_id') == $listingAccountId ){
-		$listing = ListingPeer::getListingByOwner($this->getUser()->getAttribute('account_id'),$request->getParameter('id'));
-	  	$this->form = new ListingForm($listing);
+	if ($listing) {
+		$this->form = new ListingForm($listing);
+		
 		if ('POST' == $request->getMethod()) {
-			$this->form->bind( $request->getParameter($this->form->getName()), $request->getFiles($this->form->getName()) ); 
-			$editedListing=$this->form->save();
-			//var_dump($editedListing); exit;
+			$this->processForm($request, $this->form);
 		}
-   /* }
-	else{
-		var_dump('error'); exit;
-	} */
+	} else {
+		$this->redirect('@list_view');
+	}
    }
 
   public function executeDelete(sfWebRequest $request){
   	$listing = ListingPeer::getListingByOwner($this->getUser()->getAttribute('account_id'),$request->getParameter('id'));
+	$listing->getMapInfo()->delete();
+	foreach ($listing->getListingToCategorys() as $row) {
+		$row->delete();
+	}
 	$listing->delete();
-  	$this->redirect('list/view'); 
+  	$this->redirect('@list_view'); 
   }
   
   public function executeView(sfWebRequest $request){
   	$this->requestedlisting = ListingPeer::getListingByOwner($this->getUser()->getAttribute('account_id'),$request->getParameter('id'));
-  	$this->listingMapInfo = MapInfoPeer::getMapInfoOfListing(1); //temporary value is map_info_id, value here should be the listingId, needs to update database
+  	
+	if (!$this->requestedlisting) {
+		$this->redirect('@list_view');
+	}
+  	
+	$this->listingCategory = array();
+	$assoCategory = $this->requestedlisting->getListingToCategorys();
+	foreach ( $assoCategory as $category) {
+		$this->listingCategory[] = CategoryPeer::retrieveByPK($category->getCategoryId())->getName();
+	}
+ 
   }
  
  	// code will be transferred to apps/client/modules/listing

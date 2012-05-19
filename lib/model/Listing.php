@@ -18,4 +18,15 @@
  */
 class Listing extends BaseListing {
 
+	public function getMapInfo()
+	{
+		$maps = $this->getMapInfos();
+		
+		if (!empty($maps)) {
+			return $maps[0];
+		}
+		
+		return null;
+	}
+
 } // Listing

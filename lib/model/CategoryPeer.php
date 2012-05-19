@@ -17,5 +17,4 @@
  * @package    lib.model
  */
 class CategoryPeer extends BaseCategoryPeer {
-
 } // CategoryPeer
